@@ -44,6 +44,7 @@ Makefile.coq: Makefile $(MACLANES)
 	 echo "-R coq-cat/Theory Category.Theory"; \
 	 echo "-R coq-cat/Instance Category.Instance"; \
 	 echo "-R coq-cat/Construction Category.Construction"; \
+	 echo "-R Ch_I Ex.Ch_I"; \
 	 echo $(CATEGORYTHEORY); \
 	 echo $(MACLANES)) > _CoqProject
 	$(COQBIN)coq_makefile -f _CoqProject -o Makefile.coq
