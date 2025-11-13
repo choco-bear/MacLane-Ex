@@ -1,0 +1,3 @@
+[submodule "coq-cat"]
+	path = coq-cat
+	url = https://github.com/choco-bear/coq-cat.git
