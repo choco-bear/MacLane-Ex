@@ -6,7 +6,7 @@ From Category.Theory Require Import
   Natural.
 Require Import Category.Theory.Functor.Setoid.
 Require Import Category.Construction.Fun.
-From Category.Instance Require One Two Three.
+From Category.Instance Require One Two Three PreOrder.
 
 (* TODO : Ex1. *)
 
@@ -113,3 +113,23 @@ Module Ex2.
     Proof. now destruct fg. Qed.
   End Three.
 End Ex2.
+
+Module Ex3.
+  Import PreOrder.
+  Section a.
+    Context (A : Type) (RA : crelation A) (PREA : PreOrder RA).
+    Context (B : Type) (RB : crelation B) (PREB : PreOrder RB).
+    Context (T : PreOrderSet PREA ⟶ PreOrderSet PREB).
+
+    Lemma T_Monotonic (p p' : A) : RA p p' → RB (T p) (T p').
+    Proof.
+      change (RA _ _) with (p ~{PreOrderSet PREA}~> p').
+      change (RB _ _) with ((T p) ~{PreOrderSet PREB}~> (T p')).
+      apply fmap.
+    Qed.
+  End a.
+
+  (* TODO : b *)
+
+  (* TODO : c *)
+End Ex3.
