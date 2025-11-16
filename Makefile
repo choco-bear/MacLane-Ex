@@ -27,7 +27,7 @@ maclane-quick: Makefile.coq $(MACLANES)
 	$(MAKE) -f Makefile.coq $(patsubst %.v,%.vos,$(MACLANES))
 .PHONY: maclane maclane-quick
 
-Makefile.coq: Makefile $(MACLANES)
+Makefile.coq: Makefile $(CATEGORYTHEORY) $(MACLANES)
 	(echo "-arg -w -arg -deprecated-hint-without-locality"; \
 	 echo "-arg -w -arg -deprecated-instance-without-locality"; \
 	 echo "-arg -w -arg -deprecated-from-Coq"; \
