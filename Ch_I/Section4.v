@@ -6,6 +6,8 @@ From Category.Theory Require Import
   Natural.
 From Category.Instance Require Sets.
 
+Generalizable All Variables.
+
 Module Ex1.
   Import Sets.
   Parameter S : Sets.

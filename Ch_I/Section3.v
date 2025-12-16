@@ -8,6 +8,8 @@ Require Import Category.Theory.Functor.Setoid.
 Require Import Category.Construction.Fun.
 From Category.Instance Require One Two Three PreOrder.
 
+Generalizable All Variables.
+
 (* TODO : Ex1. *)
 
 Module Ex2.
