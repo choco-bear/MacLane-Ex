@@ -8,9 +8,9 @@ From Category.Instance Require Sets.
 
 Generalizable All Variables.
 
-Module Ex1.
+Module Ex1. Section Ex1.
   Import Sets.
-  Parameter S : Sets.
+  Context (S : Sets).
 
   Local Notation "X ^ Y" :=
     (SetoidObject_function Y X) : category_theory_scope.
@@ -44,7 +44,7 @@ Module Ex1.
     intros [h1 s1] [h2 s2] [e1 e2].
     simpl in *. now rewrites.
   Qed.
-End Ex1.
+End Ex1. End Ex1.
 
 (* TODO : Ex2. *)
 
@@ -52,15 +52,13 @@ End Ex1.
 
 (* TODO : Ex4. *)
 
-Module Ex5.
-  Parameter B : Category.
-  Parameter C : Category.
-  Parameter S T : C ⟶ B.
+Module Ex5. Section Ex5.
+  Context `(S : C ⟶ B) (T : C ⟶ B).
 
-  Definition diagonal (τ : S ⟹ T) {c c' : C}
-    : c ~> c' → S c ~> T c' := λ f, τ c' ∘ fmap[S] f.
+  Definition diagonal (τ : S ⟹ T) `(f : c ~{C}~> c')
+    : S c ~> T c' := τ c' ∘ fmap[S] f.
   
-  Theorem diagonal_spec (τ : S ⟹ T) {c d e : C} (g : d ~> e) (f : c ~> d)
+  Theorem diagonal_spec (τ : S ⟹ T) `(g : d ~{C}~> e) `(f : c ~> d)
     : fmap[T] g ∘ diagonal τ f ≡ diagonal τ (g ∘ f)
     ∧ diagonal τ (g ∘ f) ≡ diagonal τ g ∘ fmap[S] f.
   Proof.
@@ -68,9 +66,9 @@ Module Ex5.
     comp_left; now normalize.
   Qed.
 
-  Theorem diagonal_spec_converse (τ : ∀ {c c' : C}, c ~> c' → S c ~> T c')
-    : (∀ {c d e : C} (g : d ~> e) (f : c ~> d), fmap[T] g ∘ τ f ≡ τ (g ∘ f))
-    → (∀ {c d e : C} (g : d ~> e) (f : c ~> d), τ (g ∘ f) ≡ τ g ∘ fmap[S] f )
+  Theorem diagonal_spec_converse (τ : ∀ `(f : c ~{C}~> c'), S c ~> T c')
+    : (∀ `(g : d ~{C}~> e) `(f : c ~> d), fmap[T] g ∘ τ f ≡ τ (g ∘ f))
+    → (∀ `(g : d ~{C}~> e) `(f : c ~> d), τ (g ∘ f) ≡ τ g ∘ fmap[S] f )
     → (∀ {c c' : C}, Proper (equiv ==> equiv) (@τ c c'))
     → ∃! τ' : S ⟹ T, ∀ c, τ' c ≡ τ (id[c]).
   Proof.
@@ -79,6 +77,6 @@ Module Ex5.
       ; rewrite DR, <-DL; now normalize
       |..]; done.
   Qed.
-End Ex5.
+End Ex5. End Ex5.
 
 (* TODO : Ex6. *)
