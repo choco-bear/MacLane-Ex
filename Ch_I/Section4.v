@@ -4,7 +4,7 @@ From Category.Theory Require Import
   Functor
   Functor.Hom
   Natural.
-From Category.Instance Require Sets.
+From Category.Instance Require Sets PreOrder.
 
 Generalizable All Variables.
 
@@ -50,7 +50,18 @@ End Ex1. End Ex1.
 
 (* TODO : Ex3. *)
 
-(* TODO : Ex4. *)
+Module Ex4. Section Ex4.
+  Import PreOrder.
+  Context `(P : @PreOrder X R) (C : Category).
+
+  Local Infix "≤" := R (at level 70).
+
+  Theorem ex4_if (S T : C ⟶ P) : (∀ c, S c ≤ T c) → @Singleton (S ⟹ T) _.
+  Proof. now intro LE; repeat construct. Qed.
+
+  Theorem ex4_only_if (S T : C ⟶ P) : S ⟹ T → ∀ c, S c ≤ T c.
+  Proof. intros τ c; exact (τ c). Qed.
+End Ex4. End Ex4.
 
 Module Ex5. Section Ex5.
   Context `(S : C ⟶ B) (T : C ⟶ B).
