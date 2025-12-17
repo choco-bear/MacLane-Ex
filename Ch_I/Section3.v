@@ -6,7 +6,7 @@ From Category.Theory Require Import
   Natural.
 Require Import Category.Theory.Functor.Setoid.
 Require Import Category.Construction.Fun.
-From Category.Instance Require One Two Three PreOrder.
+From Category.Instance Require One Two Three PreOrder Sets Grp.
 
 Generalizable All Variables.
 
@@ -117,7 +117,7 @@ Module Ex2.
 End Ex2.
 
 Module Ex3.
-  Import PreOrder.
+  Import PreOrder Grp.
   Section a.
     Context (A : Type) (RA : crelation A) (PREA : PreOrder RA).
     Context (B : Type) (RB : crelation B) (PREB : PreOrder RB).
@@ -131,7 +131,16 @@ Module Ex3.
     Qed.
   End a.
 
-  (* TODO : b *)
+  Section b.
+    Context (G : Group) (G' : Group) (F : G ⟶ G').
+
+    Program Definition functor_between_groups_is_a_homomorphism
+      : GroupHomomorphism G G' :=
+      {|  grp_map := fmap[F]
+        ; grp_map_respects := @fmap_respects G G' F ttt ttt
+      |}.
+    Next Obligation. now normalize. Qed.
+  End b.
 
   (* TODO : c *)
 End Ex3.
