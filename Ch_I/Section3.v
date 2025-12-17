@@ -117,7 +117,7 @@ Module Ex2.
 End Ex2.
 
 Module Ex3.
-  Import PreOrder Grp.
+  Import PreOrder.
   Section a.
     Context (A : Type) (RA : crelation A) (PREA : PreOrder RA).
     Context (B : Type) (RB : crelation B) (PREB : PreOrder RB).
