@@ -26,7 +26,10 @@ Module Ex1. Section Ex1.
   Proof. intros [f _]. exact (TwoHom_inv f). Qed.
 End Ex1. End Ex1.
 
-(* TODO : Ex2. *)
+Module Ex2. Section Ex2.
+  (* Check monic_compose. *)
+  (* Check epic_compose. *)
+End Ex2. End Ex2.
 
 (* TODO : Ex3. *)
 
