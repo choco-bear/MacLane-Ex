@@ -31,7 +31,26 @@ Module Ex2. Section Ex2.
   (* Check epic_compose. *)
 End Ex2. End Ex2.
 
-(* TODO : Ex3. *)
+Module Ex3. Section Ex3.
+  Import Sets.
+
+  (* Check monic_erase. *)
+
+  Local Notation "'{*}'" := (unit_setoid : Sets).
+  Local Notation "'ℕ'" := (eq_Setoid nat : Sets).
+  Program Definition f : ℕ ~> {*} := {| morphism := λ _, ttt |}.
+  Program Definition g : {*} ~> ℕ := {| morphism := λ _, 0%nat |}.
+  Program Definition h : {*} ~> ℕ := {| morphism := λ _, 1%nat |}.
+
+  Lemma Ex3 : Monic (f ∘ g) ∧ ¬ Monic f.
+  Proof.
+    split.
+    - construct. now destruct (g1 a), (g2 a).
+    - ii. pose (monic _ g h). assert (¬ g ≡ h).
+      { intro. pose (X0 ttt); inversion e0. }
+      now apply X0, e.
+  Qed.
+End Ex3. End Ex3.
 
 (* TODO : Ex4. *)
 
