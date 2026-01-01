@@ -56,7 +56,21 @@ End Ex3. End Ex3.
 
 (* TODO : Ex5. *)
 
-(* TODO : Ex6. *)
+Module Ex6. Section Ex6.
+  Import Sets.
+
+  Lemma Ex6 `(IDEM : @Idempotent Sets X f) : Split f.
+  Proof.
+    construct; [exact {X & λ x, x ≡ f x}|..].
+    { (* epimorphism *)
+      construct.
+      + exists (f X0). apply (morphism_is_proper f (f ∘ f))
+        ; now try rewrite idempotent.
+      + now proper; rewrites.
+    }
+    all: by try construct.
+  Qed.
+End Ex6. End Ex6.
 
 (* TODO : Ex7. *)
 
