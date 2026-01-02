@@ -62,13 +62,59 @@ Module Ex6. Section Ex6.
   (* Check Idempotent_Split. *)
 End Ex6. End Ex6.
 
-(* TODO : Ex7. *)
 Module Ex7. Section Ex7.
   (* Check has_right_inverse_regular. *)
   (* Check has_left_inverse_regular. *)
   (* Check from_nonempty_is_regular. *)
 End Ex7. End Ex7.
 
-(* TODO : Ex8. *)
+Module Ex8. Section Ex8.
+  Import Sets.
+
+  Record CObj :=
+    { X :> Sets 
+    ; e : X 
+    ; t : X ~> X
+    
+    ; CObj_to_type :> Type := X : Type
+    }.
+  Arguments e {c}.
+  Arguments t {c}.
+
+  Record CHom (X X' : CObj) :=
+    { f :> X ~{Sets}~> X'
+    ; proper_e : f e ≡ e
+    ; natural : f ∘ t ≡ t ∘ f
+
+    ; CHom_to_fun :> X → X' := f : X → X'
+    }.
+  Arguments f {X X'}.
+
+  Program Instance CHom_Setoid {X X' : CObj}
+    : Setoid (CHom X X') := {| equiv := λ φ ψ, ∀ x, φ x ≡ ψ x |}.
+  Next Obligation. by equivalence; etransitivity. Qed.
+
+  Program Definition CHom_id {X : CObj} : CHom X X := {| f := SetoidMorphism_id |}.
+
+  Program Definition CHom_compose {X Y Z : CObj} (φ : CHom Y Z) (ψ : CHom X Y)
+    : CHom X Z := {| f := SetoidMorphism_compose (f φ) (f ψ) |}.
+  Next Obligation. now rewrite !proper_e. Qed.
+  Next Obligation. now rewrite (@natural X0 Y ψ a), (@natural Y Z φ (ψ a)). Qed.
+
+  Program Definition C : Category :=
+    {|  obj := CObj
+      ; hom := CHom
+
+      ; id      := @CHom_id
+      ; compose := @CHom_compose
+    |}.
+  Next Obligation. (* TODO *) Admitted.
+  Next Obligation. (* TODO *) Admitted.
+  Next Obligation. (* TODO *) Admitted.
+  Next Obligation. (* TODO *) Admitted.
+  Next Obligation. (* TODO *) Admitted.
+
+  (* TODO : {| X := nat_setoid ; e := O ; t := {| morphism := S |} |} is initial. *)
+End Ex8. End Ex8.
 
 (* TODO : Ex9. *)
