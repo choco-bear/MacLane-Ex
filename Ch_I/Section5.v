@@ -2,6 +2,7 @@ Require Import Category.Lib.
 From Category.Theory Require Import
   Category
   Morphisms.
+Require Import Category.Facts.Setoid.
 From Category.Instance Require Two Sets Grp.
 
 Generalizable All Variables.
@@ -58,18 +59,8 @@ End Ex3. End Ex3.
 
 Module Ex6. Section Ex6.
   Import Sets.
-
-  Lemma Ex6 `(IDEM : @Idempotent Sets X f) : Split f.
-  Proof.
-    construct; [exact {X & λ x, x ≡ f x}|..].
-    { (* epimorphism *)
-      construct.
-      + exists (f X0). apply (morphism_is_proper f (f ∘ f))
-        ; now try rewrite idempotent.
-      + now proper; rewrites.
-    }
-    all: by try construct.
-  Qed.
+  (* Check Idempotent_Split. *)
+  (* Check from_nonempty_is_regular. *)
 End Ex6. End Ex6.
 
 (* TODO : Ex7. *)
