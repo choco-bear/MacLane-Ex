@@ -28,7 +28,7 @@ Module Ex2.
     
     Definition Unwrap1 (F : 1 ⟶ C) : C := F ttt.
 
-    Lemma Wrap1_Unwrap1 (F : 1 ⟶ C) : Wrap1 (Unwrap1 F) ≡ F.
+    Lemma Wrap1_Unwrap1 (F : 1 ⟶ C) : Wrap1 (Unwrap1 F) ≅[Fun[1,C]] F.
     Proof. srapply Component_Is_Iso_NatIso; construct; cat. Qed.
 
     Lemma Unwrap1_Wrap1 (x : C) : Unwrap1 (Wrap1 x) = x.
@@ -63,7 +63,7 @@ Module Ex2.
     
     Definition Unwrap2 (F : 2 ⟶ C) := fmap[F] TwoF.
 
-    Lemma Wrap2_Unwrap2 (F : 2 ⟶ C) : Wrap2 (Unwrap2 F) ≡ F.
+    Lemma Wrap2_Unwrap2 (F : 2 ⟶ C) : Wrap2 (Unwrap2 F) ≅[Fun[2,C]] F.
     Proof. srapply Component_Is_Iso_NatIso; construct; two_solver. Qed.
 
     Lemma Unwrap2_Wrap2 {x y : C} (f : x ~{C}~> y) : Unwrap2 (Wrap2 f) ≡ f.
@@ -107,7 +107,7 @@ Module Ex2.
     
     Definition Unwrap3 (F : 3 ⟶ C) := (fmap[F] ThreeBC, fmap[F] ThreeAB).
 
-    Lemma Wrap3_Unwrap3 (F : 3 ⟶ C) : Wrap3 (Unwrap3 F) ≡ F.
+    Lemma Wrap3_Unwrap3 (F : 3 ⟶ C) : Wrap3 (Unwrap3 F) ≅[Fun[3,C]] F.
     Proof. srapply Component_Is_Iso_NatIso; construct; three_solver. Qed.
 
     Lemma Unwrap3_Wrap3 {x y z : C} (fg : (y ~{C}~> z) ∧ (x ~{C}~> y))
