@@ -2,7 +2,8 @@ Require Import Category.Lib.
 From Category.Theory Require Import
   Category
   Morphisms
-  Terminal.
+  Terminal
+  Functor.
 Require Import Category.Facts.Setoid.
 From Category.Instance Require Two Sets Grp.
 
@@ -131,4 +132,12 @@ Module Ex8. Section Ex8.
   Defined.
 End Ex8. End Ex8.
 
-(* TODO : Ex9. *)
+Module Ex9. Section Ex9.
+  Context `{FAITHFUL : @Faithful C B T}.
+  
+  Lemma Ex9 `(f : x ~{C}~> y) (MONIC : Monic (fmap[T] f)) : Monic f.
+  Proof using FAITHFUL.
+    construct. apply faithful, monic.
+    now rewrite <-!fmap_comp, X.
+  Qed.
+End Ex9. End Ex9.
