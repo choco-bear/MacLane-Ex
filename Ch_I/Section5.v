@@ -1,7 +1,8 @@
 Require Import Category.Lib.
 From Category.Theory Require Import
   Category
-  Morphisms.
+  Morphisms
+  Terminal.
 Require Import Category.Facts.Setoid.
 From Category.Instance Require Two Sets Grp.
 
@@ -104,17 +105,30 @@ Module Ex8. Section Ex8.
   Program Definition C : Category :=
     {|  obj := CObj
       ; hom := CHom
+      ; homset := @CHom_Setoid
 
       ; id      := @CHom_id
       ; compose := @CHom_compose
     |}.
-  Next Obligation. (* TODO *) Admitted.
-  Next Obligation. (* TODO *) Admitted.
-  Next Obligation. (* TODO *) Admitted.
-  Next Obligation. (* TODO *) Admitted.
-  Next Obligation. (* TODO *) Admitted.
+  Next Obligation.
+    proper; unfold CHom_compose, CHom_to_fun; s.
+    now rewrite X1, X0.
+  Qed.
 
-  (* TODO : {| X := nat_setoid ; e := O ; t := {| morphism := S |} |} is initial. *)
+  Program Definition I : CObj :=
+    {| X := nat_setoid ; e := O ; t := {| morphism := S |} |}.
+
+  Program Definition C_has_initial_object : @Initial C I :=
+    {| initial_morphism := λ X, {| f := _ |} |}.
+  Next Obligation.
+    refine {| morphism := λ n : nat_setoid, nat_rec _ e (λ _, t) n |}.
+  Defined.
+  Next Obligation.
+    induction x.
+    - now rewrite (proper_e _ _ f0), (proper_e _ _ g).
+    - rewrite (natural _ _ f0 x), (natural _ _ g x); s.
+      now rewrite IHx.
+  Defined.
 End Ex8. End Ex8.
 
 (* TODO : Ex9. *)
