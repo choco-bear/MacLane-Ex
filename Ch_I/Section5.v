@@ -60,10 +60,14 @@ End Ex3. End Ex3.
 Module Ex6. Section Ex6.
   Import Sets.
   (* Check Idempotent_Split. *)
-  (* Check from_nonempty_is_regular. *)
 End Ex6. End Ex6.
 
 (* TODO : Ex7. *)
+Module Ex7. Section Ex7.
+  (* Check has_right_inverse_regular. *)
+  (* Check has_left_inverse_regular. *)
+  (* Check from_nonempty_is_regular. *)
+End Ex7. End Ex7.
 
 (* TODO : Ex8. *)
 
