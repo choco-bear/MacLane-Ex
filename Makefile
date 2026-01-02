@@ -39,11 +39,14 @@ Makefile.coq: Makefile $(CATEGORYTHEORY) $(MACLANES)
 	 echo "-arg -w -arg -stdlib-vector"; \
 	 echo "-arg -w -arg -parsing"; \
 	 echo "-arg -w -arg -intuition-auto-with-star"; \
+	 echo "-arg -w -arg -non-primitive-record"; \
 	 echo "-R coq-cat/imports Category"; \
+	 echo "-R coq-cat/Axioms Category.Axioms"; \
 	 echo "-R coq-cat/Lib Category.Lib"; \
 	 echo "-R coq-cat/Theory Category.Theory"; \
 	 echo "-R coq-cat/Instance Category.Instance"; \
 	 echo "-R coq-cat/Construction Category.Construction"; \
+	 echo "-R coq-cat/Facts Category.Facts"; \
 	 echo "-R Ch_I Ex.Ch_I"; \
 	 echo $(CATEGORYTHEORY); \
 	 echo $(MACLANES)) > _CoqProject
@@ -53,6 +56,6 @@ Makefile.coq: Makefile $(CATEGORYTHEORY) $(MACLANES)
 clean: Makefile.coq
 	$(MAKE) -f Makefile.coq clean || true
 	@# Make sure not to enter the `_opam` folder.
-	find [a-z]*/ \( -name "*.d" -o -name "*.vo" -o -name "*.vo[sk]" -o -name "*.aux" -o -name "*.cache" -o -name "*.glob" -o -name "*.vos" \) -print -delete || true
+	find [a-zA-Z]*/ \( -name "*.d" -o -name "*.vo" -o -name "*.vo[sk]" -o -name "*.aux" -o -name "*.cache" -o -name "*.glob" -o -name "*.vos" \) -print -delete || true
 	rm -f _CoqProject Makefile.coq Makefile.coq.conf .lia.cache .nia.cache
 .PHONY: clean

@@ -26,16 +26,8 @@ Module Ex1. Section Ex1.
         ; fmap_respects := λ x y f g eq, _
       |}.
   Next Obligation. now proper; rewrites. Qed.
-  Next Obligation. split; setoid_fequal; now rewrites. Qed.
-  Next Obligation.
-    sufficient (fmap[F] id[x] ≡ id ∧ fmap[G] id[x] ≡ id).
-    now split; rewrite fmap_id.
-  Qed.
-  Next Obligation.
-    sufficient ( fmap[F] (f ∘ g) ≡ fmap[F] f ∘ fmap[F] g
-               ∧ fmap[G] (f ∘ g) ≡ fmap[G] f ∘ fmap[G] g ).
-    now split; rewrite fmap_comp.
-  Qed.
+  Next Obligation. now rewrites. Qed.
+  Next Obligation. now rewrite !fmap_comp. Qed.
   Local Notation "F × G" := (pointwise_prod F G) : functor_scope.
 
   Program Definition eval : Hom(S,-) × (Const S) ⟹ Id :=
