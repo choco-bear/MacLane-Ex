@@ -2,7 +2,7 @@ Require Import Category.Lib.
 From Category.Theory Require Import
   Category
   Morphisms
-  Terminal
+  Initial
   Functor.
 Require Import Category.Facts.Setoid.
 From Category.Instance Require Two Sets Grp.
@@ -119,16 +119,16 @@ Module Ex8. Section Ex8.
   Program Definition I : CObj :=
     {| X := nat_setoid ; e := O ; t := {| morphism := S |} |}.
 
-  Program Definition C_has_initial_object : @Initial C I :=
+  Program Definition C_has_initial_object : @IsInitial C I :=
     {| initial_morphism := λ X, {| f := _ |} |}.
   Next Obligation.
     refine {| morphism := λ n : nat_setoid, nat_rec _ e (λ _, t) n |}.
   Defined.
   Next Obligation.
-    induction x.
+    induction x0.
     - now rewrite (proper_e _ _ f0), (proper_e _ _ g).
-    - rewrite (natural _ _ f0 x), (natural _ _ g x); s.
-      now rewrite IHx.
+    - rewrite (natural _ _ f0 x0), (natural _ _ g x0); s.
+      now rewrite IHx0.
   Defined.
 End Ex8. End Ex8.
 
