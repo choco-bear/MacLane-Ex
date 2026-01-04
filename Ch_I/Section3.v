@@ -4,7 +4,6 @@ From Category.Theory Require Import
   Functor
   Isomorphism
   Natural.
-Require Import Category.Theory.Functor.Setoid.
 Require Import Category.Construction.Fun.
 From Category.Instance Require One Two Three PreOrder Sets Grp.
 
