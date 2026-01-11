@@ -13,8 +13,7 @@ Generalizable All Variables.
 
 Module Ex2. Section Ex2.
   Import Fun Product Discrete Cat.
-  Context (B : Category) (X : Type).
-  Context `{FIN : FinType X}.
+  Context (B : Category) (X : Type) {FIN : FinType X}.
 
   Lemma ex2 : Fun[Cat[X],B] ≅[Cat] ∏ (λ x : X, B).
     isomorphism.
