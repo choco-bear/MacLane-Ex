@@ -3,8 +3,8 @@ From Category.Theory Require Import
   Category
   Functor
   Natural.
-Require Import Category.Construction.Fun.
-From Category.Instance Require PreOrder.
+From Category.Construction Require Product Fun.
+From Category.Instance Require PreOrder Discrete Cat.
 
 Generalizable All Variables.
 
@@ -15,7 +15,7 @@ Generalizable All Variables.
 (* TODO : Ex3. *)
 
 Module Ex4. Section Ex4.
-  Import PreOrder.
+  Import PreOrder Fun.
   Context `(P : @PreOrder X R) `{S : crelation Y} (Q : @PreOrder Y S).
 
   Lemma ex4 : PreOrder (hom[Fun[P,Q]]).
