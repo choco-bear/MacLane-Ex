@@ -4,8 +4,9 @@ From Category.Theory Require Import
   Isomorphism
   Functor
   Natural.
+From Category.Facts Require Group.Automorphism.
 From Category.Construction Require Product Fun.
-From Category.Instance Require PreOrder Discrete Cat.
+From Category.Instance Require PreOrder Discrete Cat Fin Grp.
 
 Generalizable All Variables.
 
@@ -39,7 +40,53 @@ Module Ex4. Section Ex4.
   Qed.
 End Ex4. End Ex4.
 
-(* TODO : Ex5. *)
+Module Ex5. Section Ex5.
+  Import Fin.
+  Context (G : Group) {FIN : @Finite G G}.
+  Local Open Scope group_type_scope.
+  Local Open Scope group_scope.
+
+  (** Every object in the category [Fun[G,Fin]] can be represented as a group homomorphism from
+    * [G] to [Aut[Fin] (F ttt)].
+    *)
+  Section Objects.
+    Import Grp Fun Discrete Automorphism.
+    Program Definition functor_defines_homomorphism
+      (F : Fun[G,Fin]) : G ~{Grp}~> Aut (F ttt) :=
+        {| grp_map := λ g, {| to := fmap[F] g; from := fmap[F] (g⁻¹)%group |} |}.
+    Next Obligation.
+      unshelve etransitivity.
+      { exact ((fmap[F] (g : ttt ~{G}~> ttt) ∘ fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group) a). }
+      { cat. } rewrite <-fmap_comp; unfold of_group; ss.
+      by grp_simplify.
+    Qed.
+    Next Obligation.
+      unshelve etransitivity.
+      { exact ((fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group ∘ fmap[F] (g : ttt ~{G}~> ttt)) a). }
+      { cat. } rewrite <-fmap_comp; unfold of_group; ss.
+      by grp_simplify.
+    Qed.
+    Next Obligation. now proper; rewrites. Qed.
+    Next Obligation.
+      i. unshelve etransitivity.
+      { exact ((fmap[F] ((g : ttt ~{G}~> ttt) ∘ (h : ttt ~{G}~> ttt))) a). }
+      { cat. } now rewrite fmap_comp.
+    Qed.
+
+    Program Definition homomorphism_defines_functor
+      `(φ : G ~{Grp}~> Aut[Fin] X) : Fun[G,Fin] :=
+      {|  fobj := λ _, X
+        ; fmap := λ _ _ g, φ g
+      |}.
+    Next Obligation. now proper; rewrites. Qed.
+    Next Obligation. now grp_simplify. Qed.
+    Next Obligation. now grp_simplify. Qed.
+  End Objects.
+
+  Section Morphisms.
+    (* TODO *)
+  End Morphisms.
+End Ex5. End Ex5.
 
 (* TODO : Ex6. *)
 
