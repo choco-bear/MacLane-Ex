@@ -64,10 +64,7 @@ Module Ex5. Section Ex5.
   Theorem diagonal_spec (τ : S ⟹ T) `(g : d ~{C}~> e) `(f : c ~> d)
     : fmap[T] g ∘ diagonal τ f ≡ diagonal τ (g ∘ f)
     ∧ diagonal τ (g ∘ f) ≡ diagonal τ g ∘ fmap[S] f.
-  Proof.
-    unfold diagonal; cat; normalize; try done.
-    comp_left; now normalize.
-  Qed.
+  Proof. now unfold diagonal; normalize. Qed.
 
   Theorem diagonal_spec_converse (τ : ∀ `(f : c ~{C}~> c'), S c ~> T c')
     : (∀ `(g : d ~{C}~> e) `(f : c ~> d), fmap[T] g ∘ τ f ≡ τ (g ∘ f))
@@ -75,10 +72,9 @@ Module Ex5. Section Ex5.
     → (∀ {c c' : C}, Proper (equiv ==> equiv) (@τ c c'))
     → ∃! τ' : S ⟹ T, ∀ c, τ' c ≡ τ (id[c]).
   Proof.
-    intros DR DL PROPER. construct;
+    intros DR DL PROPER. now construct;
       [ natural_transform; [exact (λ x, τ x x id)|simpl]
-      ; rewrite DR, <-DL; now normalize
-      |..]; done.
+      ; rewrite DR, <-DL; normalize |..].
   Qed.
 End Ex5. End Ex5.
 

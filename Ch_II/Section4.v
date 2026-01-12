@@ -6,7 +6,7 @@ From Category.Theory Require Import
   Natural.
 From Category.Facts Require Group.Automorphism.
 From Category.Construction Require Product Fun.
-From Category.Instance Require PreOrder Discrete Cat Fin Grp Two.
+From Category.Instance Require PreOrder Discrete Cat Fin Grp Two Sets.
 
 Generalizable All Variables.
 
@@ -41,7 +41,7 @@ Module Ex4. Section Ex4.
 End Ex4. End Ex4.
 
 Module Ex5. Section Ex5.
-  Import Fin Grp Fun Discrete Automorphism.
+  Import Fin Grp Fun Discrete Automorphism Sets.
   Context (G : Group) {FIN : @Finite G G}.
   Local Open Scope group_type_scope.
   Local Open Scope group_scope.
@@ -216,8 +216,7 @@ Module Ex8. Section Ex8.
   Next Obligation. by destruct t. Qed.
   Next Obligation.
     pose proof (TwoHom_inv t0). pose proof (TwoHom_inv t).
-    unfold TwoHom_inv_t in *. destruct t1, t2, t3; ss; subst; normalize; try done.
-    now rewrite <-comp_assoc, <-naturality, comp_assoc.
+    unfold TwoHom_inv_t in *. now destruct t1, t2, t3; normalize.
   Qed.
 
   Theorem ex8 (c : C)
