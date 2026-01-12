@@ -180,4 +180,52 @@ Module Ex7. Section Ex7.
   End Bijection.
 End Ex7. End Ex7.
 
-(* TODO : Ex8. *)
+Module Ex8. Section Ex8.
+  Import Two Fun Product.
+  Context (C : Category).
+
+  Program Definition Ta : C ⟶ C × 2 :=
+    {| fobj := λ c, (c, TwoA) ; fmap := λ x y f, (f, TwoIdA) |}.
+
+  Program Definition Tb : C ⟶ C × 2 :=
+    {| fobj := λ c, (c, TwoB) ; fmap := λ x y f, (f, TwoIdB) |}.
+
+  Program Definition μ : Ta ⟹ Tb := {| component := λ c, (id[c], TwoF) |}.
+
+  Context (B : Category) (S T : C ⟶ B) (τ : S ⟹ T).
+
+  Definition F_fobj (x : obj[C × 2]) : B :=
+    match x with
+    | (c, TwoA) => S c
+    | (c, TwoB) => T c
+    end.
+
+  Program Definition F : C × 2 ⟶ B := {| fobj := F_fobj |}.
+  Next Obligation.
+    pose proof (TwoHom_inv t). unfold TwoHom_inv_t in X.
+    destruct t0, t1; subst; ss.
+    - exact (fmap[S] h).
+    - exact (fmap[T] h ∘ τ o0).
+    - exact (fmap[T] h).
+  Defined.
+  Next Obligation.
+    proper; ss; subst.
+    pose proof (TwoHom_inv H0). unfold TwoHom_inv_t in X0.
+    now destruct t0, t; subst; ss; rewrites.
+  Qed.
+  Next Obligation. by destruct t. Qed.
+  Next Obligation.
+    pose proof (TwoHom_inv t0). pose proof (TwoHom_inv t).
+    unfold TwoHom_inv_t in *. destruct t1, t2, t3; ss; subst; normalize; try done.
+    now rewrite <-comp_assoc, <-naturality, comp_assoc.
+  Qed.
+
+  Theorem ex8 (c : C)
+    : let H : C ⟶ Fun[2,B] := Ex7.H B C S T τ in
+      F (c, TwoA) ≅ H c TwoA
+    ∧ F (c, TwoB) ≅ H c TwoB
+    ∧ fmap[F] ((id[c], TwoIdA) : (c,TwoA) ~{C × 2}~> (c,TwoA)) ≡ fmap[H c] TwoIdA
+    ∧ fmap[F] ((id[c], TwoIdB) : (c,TwoB) ~{C × 2}~> (c,TwoB)) ≡ fmap[H c] TwoIdB
+    ∧ fmap[F] ((id[c], TwoF) : (c,TwoA) ~{C × 2}~> (c,TwoB)) ≡ fmap[H c] TwoF.
+  Proof. by simplify; try exact iso_id. Qed.
+End Ex8. End Ex8.
