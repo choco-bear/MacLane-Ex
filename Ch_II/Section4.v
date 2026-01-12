@@ -41,7 +41,7 @@ Module Ex4. Section Ex4.
 End Ex4. End Ex4.
 
 Module Ex5. Section Ex5.
-  Import Fin.
+  Import Fin Grp Fun Discrete Automorphism.
   Context (G : Group) {FIN : @Finite G G}.
   Local Open Scope group_type_scope.
   Local Open Scope group_scope.
@@ -50,39 +50,36 @@ Module Ex5. Section Ex5.
     * from [G] to [Aut[Fin] (F ttt)]. In other words, each object can be represented as a finite
     * G-set.
     *)
-  Section Objects.
-    Import Grp Fun Discrete Automorphism.
-    Program Definition functor_defines_homomorphism
-      (F : Fun[G,Fin]) : G ~{Grp}~> Aut (F ttt) :=
-        {| grp_map := λ g, {| to := fmap[F] g; from := fmap[F] (g⁻¹)%group |} |}.
-    Next Obligation.
-      unshelve etransitivity.
-      { exact ((fmap[F] (g : ttt ~{G}~> ttt) ∘ fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group) a). }
-      { cat. } rewrite <-fmap_comp; unfold of_group; ss.
-      by grp_simplify.
-    Qed.
-    Next Obligation.
-      unshelve etransitivity.
-      { exact ((fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group ∘ fmap[F] (g : ttt ~{G}~> ttt)) a). }
-      { cat. } rewrite <-fmap_comp; unfold of_group; ss.
-      by grp_simplify.
-    Qed.
-    Next Obligation. now proper; rewrites. Qed.
-    Next Obligation.
-      i. unshelve etransitivity.
-      { exact ((fmap[F] ((g : ttt ~{G}~> ttt) ∘ (h : ttt ~{G}~> ttt))) a). }
-      { cat. } now rewrite fmap_comp.
-    Qed.
+  Program Definition functor_defines_homomorphism
+    (F : Fun[G,Fin]) : G ~{Grp}~> Aut (F ttt) :=
+      {| grp_map := λ g, {| to := fmap[F] g; from := fmap[F] (g⁻¹)%group |} |}.
+  Next Obligation.
+    unshelve etransitivity.
+    { exact ((fmap[F] (g : ttt ~{G}~> ttt) ∘ fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group) a). }
+    { cat. } rewrite <-fmap_comp; unfold of_group; ss.
+    by grp_simplify.
+  Qed.
+  Next Obligation.
+    unshelve etransitivity.
+    { exact ((fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group ∘ fmap[F] (g : ttt ~{G}~> ttt)) a). }
+    { cat. } rewrite <-fmap_comp; unfold of_group; ss.
+    by grp_simplify.
+  Qed.
+  Next Obligation. now proper; rewrites. Qed.
+  Next Obligation.
+    i. unshelve etransitivity.
+    { exact ((fmap[F] ((g : ttt ~{G}~> ttt) ∘ (h : ttt ~{G}~> ttt))) a). }
+    { cat. } now rewrite fmap_comp.
+  Qed.
 
-    Program Definition homomorphism_defines_functor
-      `(φ : G ~{Grp}~> Aut[Fin] X) : Fun[G,Fin] :=
-      {|  fobj := λ _, X
-        ; fmap := λ _ _ g, φ g
-      |}.
-    Next Obligation. now proper; rewrites. Qed.
-    Next Obligation. now grp_simplify. Qed.
-    Next Obligation. now grp_simplify. Qed.
-  End Objects.
+  Program Definition homomorphism_defines_functor
+    `(φ : G ~{Grp}~> Aut[Fin] X) : Fun[G,Fin] :=
+    {|  fobj := λ _, X
+      ; fmap := λ _ _ g, φ g
+    |}.
+  Next Obligation. now proper; rewrites. Qed.
+  Next Obligation. now grp_simplify. Qed.
+  Next Obligation. now grp_simplify. Qed.
 
   (** Each morphism [f] from [F] to [G] in the category [Fun[G,Fin]] can be represented as a
     * function [φ] from [F ttt] to [G ttt] such that [φ (g ⋅ x) ≡ g ⋅ φ x] for every [g] and
