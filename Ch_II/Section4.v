@@ -46,8 +46,9 @@ Module Ex5. Section Ex5.
   Local Open Scope group_type_scope.
   Local Open Scope group_scope.
 
-  (** Every object in the category [Fun[G,Fin]] can be represented as a group homomorphism from
-    * [G] to [Aut[Fin] (F ttt)].
+  (** Every object [F] in the category [Fun[G,Fin]] can be represented as a group homomorphism
+    * from [G] to [Aut[Fin] (F ttt)]. In other words, each object can be represented as a finite
+    * G-set.
     *)
   Section Objects.
     Import Grp Fun Discrete Automorphism.
@@ -83,9 +84,11 @@ Module Ex5. Section Ex5.
     Next Obligation. now grp_simplify. Qed.
   End Objects.
 
-  Section Morphisms.
-    (* TODO *)
-  End Morphisms.
+  (** Each morphism [f] from [F] to [G] in the category [Fun[G,Fin]] can be represented as a
+    * function [φ] from [F ttt] to [G ttt] such that [φ (g ⋅ x) ≡ g ⋅ φ x] for every [g] and
+    * [x]. In other words, each morphism can be represented as a G-morphism. Hence, the category
+    * [Fun[G,Fin]] is equivalent to the category of finite G-sets.
+    *)
 End Ex5. End Ex5.
 
 (* TODO : Ex6. *)
