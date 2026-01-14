@@ -111,7 +111,6 @@ Module Ex7. Section Ex7.
 
     Program Definition τ : S ⟹ T :=
       {| component := λ c, fmap[H c] TwoF |}.
-    Next Obligation. now normalize. Qed.
   End H_determines.
 
   Section Triple_determines.

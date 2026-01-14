@@ -138,7 +138,6 @@ Module Ex3.
       {|  grp_map := fmap[F]
         ; grp_map_respects := @fmap_respects G G' F ttt ttt
       |}.
-    Next Obligation. now normalize. Qed.
   End b.
 
   (* TODO : c *)
