@@ -65,7 +65,6 @@ Module Ex5. Section Ex5.
     { cat. } rewrite <-fmap_comp; unfold of_group; ss.
     by grp_simplify.
   Qed.
-  Next Obligation. now proper; rewrites. Qed.
   Next Obligation.
     i. unshelve etransitivity.
     { exact ((fmap[F] ((g : ttt ~{G}~> ttt) ∘ (h : ttt ~{G}~> ttt))) a). }
@@ -77,7 +76,6 @@ Module Ex5. Section Ex5.
     {|  fobj := λ _, X
       ; fmap := λ _ _ g, φ g
     |}.
-  Next Obligation. now proper; rewrites. Qed.
   Next Obligation. now grp_simplify. Qed.
   Next Obligation. now grp_simplify. Qed.
 

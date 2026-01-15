@@ -94,7 +94,6 @@ Module Ex8. Section Ex8.
 
   Program Instance CHom_Setoid {X X' : CObj}
     : Setoid (CHom X X') := {| equiv := λ φ ψ, ∀ x, φ x ≡ ψ x |}.
-  Next Obligation. by equivalence; etransitivity. Qed.
 
   Program Definition CHom_id {X : CObj} : CHom X X := {| f := SetoidMorphism_id |}.
 

@@ -25,17 +25,10 @@ Module Ex1. Section Ex1.
 
         ; fmap_respects := λ x y f g eq, _
       |}.
-  Next Obligation. now proper; rewrites. Qed.
-  Next Obligation. now rewrites. Qed.
-  Next Obligation. now rewrite !fmap_comp. Qed.
   Local Notation "F × G" := (pointwise_prod F G) : functor_scope.
 
-  Program Definition eval : Hom(S,-) × (Const S) ⟹ Id :=
+  Program Definition eval : (Hom(S,-) × (Const S)) ⟹ Id :=
     {|  component := λ X, {| morphism := λ hs, (fst hs) (snd hs) |} |}.
-  Next Obligation.
-    intros [h1 s1] [h2 s2] [e1 e2].
-    simpl in *. now rewrites.
-  Qed.
 End Ex1. End Ex1.
 
 (* TODO : Ex2. *)
