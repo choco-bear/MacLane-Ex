@@ -48,7 +48,7 @@ Module Ex3. Section Ex3.
   Lemma Ex3 : Monic (f ∘ g) ∧ ¬ Monic f.
   Proof.
     split.
-    - construct. now destruct (g1 a), (g2 a).
+    - construct; ss. now destruct (g1 a), (g2 a).
     - ii. pose (monic _ g h). assert (¬ g ≡ h).
       { intro. pose (X0 ttt); inversion e0. }
       now apply X0, e.
@@ -100,7 +100,7 @@ Module Ex8. Section Ex8.
   Program Definition CHom_compose {X Y Z : CObj} (φ : CHom Y Z) (ψ : CHom X Y)
     : CHom X Z := {| f := SetoidMorphism_compose (f φ) (f ψ) |}.
   Next Obligation. now rewrite !proper_e. Qed.
-  Next Obligation. now rewrite (@natural X0 Y ψ a), (@natural Y Z φ (ψ a)). Qed.
+  Next Obligation. now ss; rewrite (@natural X0 Y ψ a), (@natural Y Z φ (ψ a)). Qed.
 
   Program Definition C : Category :=
     {|  obj := CObj
@@ -112,7 +112,7 @@ Module Ex8. Section Ex8.
     |}.
   Next Obligation.
     proper; unfold CHom_compose, CHom_to_fun; s.
-    now rewrite X1, X0.
+    by sufficient (x1 x2 ≡ y1 x2).
   Qed.
 
   Program Definition I : CObj :=
@@ -124,7 +124,7 @@ Module Ex8. Section Ex8.
     refine {| morphism := λ n : nat_setoid, nat_rec _ e (λ _, t) n |}.
   Defined.
   Next Obligation.
-    induction x0.
+    ss. induction x0.
     - now rewrite (proper_e _ _ f0), (proper_e _ _ g).
     - rewrite (natural _ _ f0 x0), (natural _ _ g x0); s.
       now rewrite IHx0.

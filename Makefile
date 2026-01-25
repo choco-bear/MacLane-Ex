@@ -43,6 +43,7 @@ Makefile.coq: Makefile $(CATEGORYTHEORY) $(MACLANES)
 	 echo "-R coq-cat/imports Category"; \
 	 echo "-R coq-cat/Axioms Category.Axioms"; \
 	 echo "-R coq-cat/Lib Category.Lib"; \
+	 echo "-R coq-cat/Algebra Category.Algebra"; \
 	 echo "-R coq-cat/Theory Category.Theory"; \
 	 echo "-R coq-cat/Instance Category.Instance"; \
 	 echo "-R coq-cat/Construction Category.Construction"; \

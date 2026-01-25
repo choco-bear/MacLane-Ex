@@ -1,4 +1,5 @@
 Require Import Category.Lib.
+Require Import Category.Algebra.
 From Category.Theory Require Import
   Category
   Functor

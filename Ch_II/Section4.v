@@ -1,9 +1,8 @@
 Require Import Category.Lib.
+Require Import Category.Algebra.
 From Category.Theory Require Import
   Category
-  Isomorphism
-  Functor
-  Natural.
+  Functor.Setoid.
 From Category.Facts Require Group.Automorphism.
 From Category.Construction Require Product Fun.
 From Category.Instance Require PreOrder Discrete Cat Fin Grp Two Sets.
@@ -22,8 +21,8 @@ Module Ex2. Section Ex2.
     - s. srapply (@FromAFunctor _ _ (λ F, _)).
       { exact (Functor_from_function F). }
       by construct; try natural_transform; ss; subst.
-    - cat.
-    - by cat; try isomorphism; try natural_transform; ss; subst.
+    - by functor_equiv_solver.
+    - ss; cat; construct; ss; do 2 (try natural_transform; ss); cat.
   Qed.
 End Ex2. End Ex2.
 
@@ -54,19 +53,19 @@ Module Ex5. Section Ex5.
     (F : Fun[G,Fin]) : G ~{Grp}~> Aut (F ttt) :=
       {| grp_map := λ g, {| to := fmap[F] g; from := fmap[F] (g⁻¹)%group |} |}.
   Next Obligation.
-    unshelve etransitivity.
+    ss. unshelve etransitivity.
     { exact ((fmap[F] (g : ttt ~{G}~> ttt) ∘ fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group) a). }
     { cat. } rewrite <-fmap_comp; unfold of_group; ss.
-    by grp_simplify.
+    sufficient (g ⋅ (g⁻¹)%group ≡ ε); by grp_simplify.
   Qed.
   Next Obligation.
-    unshelve etransitivity.
+    ss; unshelve etransitivity.
     { exact ((fmap[F] (g⁻¹ : ttt ~{G}~> ttt)%group ∘ fmap[F] (g : ttt ~{G}~> ttt)) a). }
     { cat. } rewrite <-fmap_comp; unfold of_group; ss.
-    by grp_simplify.
+    sufficient ((g⁻¹)%group ⋅ g ≡ ε); by grp_simplify.
   Qed.
   Next Obligation.
-    i. unshelve etransitivity.
+    ss. unshelve etransitivity.
     { exact ((fmap[F] ((g : ttt ~{G}~> ttt) ∘ (h : ttt ~{G}~> ttt))) a). }
     { cat. } now rewrite fmap_comp.
   Qed.
@@ -147,33 +146,29 @@ Module Ex7. Section Ex7.
       now destruct x0, y0; subst; ss; normalize.
     Qed.
     Next Obligation. now proper; destruct x1; rewrites. Qed.
-    Next Obligation. by destruct x0. Qed.
-    Next Obligation. by destruct x0. Qed.
+    Next Obligation. by ss; destruct x0. Qed.
+    Next Obligation. by ss; destruct x0. Qed.
   End Triple_determines.
 
   Section Bijection.
-    Program Definition bijective_1 (H' : C ⟶ Fun[2,B]) : H' ≡ H (S H') (T H') (τ H') := (_ ; _).
-    Next Obligation.
-      isomorphism.
-      - natural_transform; ss.
-        + destruct x0; exact id.
-        + pose proof (TwoHom_inv f). unfold TwoHom_inv_t in X.
-          by destruct x0, y; subst; ss.
-      - natural_transform; ss.
-        + destruct x0; exact id.
-        + pose proof (TwoHom_inv f). unfold TwoHom_inv_t in X.
-          by destruct x0, y; subst; ss.
-      - by destruct x0.
-      - by destruct x0.
+    Definition bijective_1 (H' : C ⟶ Fun[2,B]) : H' ≡ H (S H') (T H') (τ H').
+    Proof.
+      functor_equiv_solver; cat;
+      repeat match goal with
+             | [ f : TwoHom _ _ |- _ ] => srewrite (TwoHom_inv f)
+             | [ x : TwoObj |- _ ] => destruct x
+             | [ H : TwoB = TwoA |- _ ] => inversion H
+             | [ H : TwoA = TwoB |- _ ] => inversion H
+             end; auto with two_laws; cat; cat.
     Defined.
-    Next Obligation. by destruct x0. Qed.
   
-    Program Definition bijective_2 (S' T' : C ⟶ B) (τ' : S' ⟹ T')
+    Definition bijective_2 (S' T' : C ⟶ B) (τ' : S' ⟹ T')
       : ∃ S_iso : S' ≅[Fun[C,B]] S (H S' T' τ'),
         ∃ T_iso : T' ≅[Fun[C,B]] T (H S' T' τ'),
-        τ' ≡ T_iso⁻¹ ∘ τ (H S' T' τ') ∘ S_iso := (_; (_; _)).
-    Next Obligation. by unshelve by isomorphism; try natural_transform. Defined.
-    Next Obligation. by unshelve by isomorphism; try natural_transform. Defined.
+        τ' ≡ T_iso⁻¹ ∘ τ (H S' T' τ') ∘ S_iso.
+    Proof.
+      by construct; [functor_equiv_solver|construct]; [functor_equiv_solver|ss].
+    Defined.
   End Bijection.
 End Ex7. End Ex7.
 
@@ -207,7 +202,7 @@ Module Ex8. Section Ex8.
   Defined.
   Next Obligation.
     proper; ss; subst.
-    pose proof (TwoHom_inv H0). unfold TwoHom_inv_t in X0.
+    pose proof (TwoHom_inv H0). unfold TwoHom_inv_t in X.
     now destruct t0, t; subst; ss; rewrites.
   Qed.
   Next Obligation. by destruct t. Qed.
