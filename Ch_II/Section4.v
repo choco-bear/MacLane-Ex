@@ -108,6 +108,7 @@ Module Ex7. Section Ex7.
 
     Program Definition τ : S ⟹ T :=
       {| component := λ c, fmap[H c] TwoF |}.
+    Next Obligation. now unfold S, T, fmap; normalize. Qed.
   End H_determines.
 
   Section Triple_determines.
@@ -143,7 +144,7 @@ Module Ex7. Section Ex7.
       |}.
     Next Obligation.
       pose proof (TwoHom_inv f0). unfold TwoHom_inv_t in X.
-      now destruct x0, y0; subst; ss; normalize.
+      now destruct x0, y0; subst; ss; unfold H_fobj, fmap; normalize.
     Qed.
     Next Obligation. now proper; destruct x1; rewrites. Qed.
     Next Obligation. by ss; destruct x0. Qed.
@@ -202,7 +203,7 @@ Module Ex8. Section Ex8.
   Defined.
   Next Obligation.
     proper; ss; subst.
-    pose proof (TwoHom_inv H0). unfold TwoHom_inv_t in X.
+    pose proof (TwoHom_inv x0). unfold TwoHom_inv_t in X.
     now destruct t0, t; subst; ss; rewrites.
   Qed.
   Next Obligation. by destruct t. Qed.
@@ -218,5 +219,5 @@ Module Ex8. Section Ex8.
     ∧ fmap[F] ((id[c], TwoIdA) : (c,TwoA) ~{C × 2}~> (c,TwoA)) ≡ fmap[H c] TwoIdA
     ∧ fmap[F] ((id[c], TwoIdB) : (c,TwoB) ~{C × 2}~> (c,TwoB)) ≡ fmap[H c] TwoIdB
     ∧ fmap[F] ((id[c], TwoF) : (c,TwoA) ~{C × 2}~> (c,TwoB)) ≡ fmap[H c] TwoF.
-  Proof. by simplify; try exact iso_id. Qed.
+  Proof. by simplify; try exact iso_id; unfold Ex7.H_fobj, fmap. Qed.
 End Ex8. End Ex8.

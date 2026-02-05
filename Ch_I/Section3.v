@@ -108,7 +108,10 @@ Module Ex2.
     Definition Unwrap3 (F : 3 ⟶ C) := (fmap[F] ThreeBC, fmap[F] ThreeAB).
 
     Lemma Wrap3_Unwrap3 (F : 3 ⟶ C) : Wrap3 (Unwrap3 F) ≅[Fun[3,C]] F.
-    Proof. srapply Component_Is_Iso_NatIso; construct; three_solver. Qed.
+    Proof.
+      srapply Component_Is_Iso_NatIso; construct; three_solver.
+      by unfold Wrap3, Unwrap3, fmap.
+    Qed.
 
     Lemma Unwrap3_Wrap3 {x y z : C} (fg : (y ~{C}~> z) ∧ (x ~{C}~> y))
       : Unwrap3 (Wrap3 fg) ≡ fg.

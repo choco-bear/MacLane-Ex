@@ -65,8 +65,8 @@ Module Ex5. Section Ex5.
     → (∀ {c c' : C}, Proper (equiv ==> equiv) (@τ c c'))
     → ∃! τ' : S ⟹ T, ∀ c, τ' c ≡ τ (id[c]).
   Proof.
-    intros DR DL PROPER. now construct;
-      [ natural_transform; [exact (λ x, τ x x id)|simpl]
+    by intros DR DL ?; construct;
+      [ natural_transform; [exact (τ x x id)|simpl]
       ; rewrite DR, <-DL; normalize |..].
   Qed.
 End Ex5. End Ex5.
