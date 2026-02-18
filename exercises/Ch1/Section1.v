@@ -1,0 +1,1 @@
+(** There is no exercises in the section 1 of the chapter 1. *)
