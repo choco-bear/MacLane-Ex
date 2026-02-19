@@ -1,11 +1,11 @@
 Require Import Common.
 Require Import Graphs.
 
-Section Ex1.
+Module Ex1.
   (* TODO *)
 End Ex1.
 
-Section Ex2.
+Module Ex2.
   Context `{C : Category Obj}.
   
   Program Definition wrap_1 x : 1 ⟶ C :=
@@ -82,14 +82,14 @@ Section Ex2.
   Qed.
 End Ex2.
 
-Section Ex3.
+Module Ex3.
   (* TODO *)
 End Ex3.
 
-Section Ex4.
+Module Ex4.
   (* TODO *)
 End Ex4.
 
-Section Ex5.
+Module Ex5.
   (* TODO *)
 End Ex5.
