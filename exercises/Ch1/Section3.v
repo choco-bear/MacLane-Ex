@@ -5,7 +5,7 @@ Module Ex1.
   (* TODO *)
 End Ex1.
 
-Module Ex2.
+Module Ex2. Section Ex2.
   Context `{C : Category Obj}.
   
   Program Definition wrap_1 x : 1 ⟶ C :=
@@ -80,7 +80,7 @@ Module Ex2.
     apply functor_ext. { extensionality x. Three.solver. }
     ii. ss. depdes x y f F; rewrite /wrap_3 /unwrap_3 /Functor.fmap /Functor.fobj ?fmap_id -?fmap_comp //.
   Qed.
-End Ex2.
+End Ex2. End Ex2.
 
 Module Ex3.
   (* TODO *)
