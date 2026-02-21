@@ -1,11 +1,12 @@
 Require Import Common.
-Require Import Graphs.
+Require Graphs Concrete.
 
 Module Ex1.
   (* TODO *)
 End Ex1.
 
 Module Ex2. Section Ex2.
+  Import Graphs.
   Context `{C : Category Obj}.
   
   Program Definition wrap_1 x : 1 ⟶ C :=
@@ -100,7 +101,25 @@ Module Ex3.
   End PartA.
 
   Section PartB.
-    (* TODO *)
+    Import Concrete.
+    Context (G H : Grp.Object).
+
+    Notation is_homomorphism := (λ f, ∀ x y, f (x ∘ y) = f x ∘ f y)%morphism.
+
+    Program Definition functor_to_homomorphism (T : G ~> H)
+      : is_homomorphism (hom_cast _ _ ∘ (fmap T : ⇑ G → _) : _ → ⇑ H) := _.
+    Next Obligation.
+      fmap_eq_simplify.
+      (** Current Hypotheses:
+        * G, H : Grp.Object
+        * T : G ⟶ H
+        * x, y : ● ~> ●
+        *
+        * Current Goal:
+        * (id[H] # (T # x ∘ T # y))%morphism ~= (id[H] # (⇑(T # x) ∘ ⇑(T # y)))%morphism
+        *)
+      (* TODO : upgrade the tactic [fmap_eq_simplify] to solve this one automatically. *)
+    Admitted.
   End PartB.
 
   Section PartC.
