@@ -83,7 +83,29 @@ Module Ex2. Section Ex2.
 End Ex2. End Ex2.
 
 Module Ex3.
-  (* TODO *)
+  Section PartA.
+    Context `{_PPO : @IsPreOrder ObjP P} `{_QPO : @IsPreOrder ObjQ Q}.
+
+    Notation monotonic := (Proper ((≤) ==> (≤))).
+
+    Program Definition functor_to_monotonic (T : P ⟶ Q) : monotonic T := _.
+    Next Obligation. by inv H; split; apply T. Qed.
+
+    Program Definition monotonic_to_functor
+      (f : ObjP → ObjQ) {MONO : monotonic f} : P ⟶ Q :=
+      {|
+        fobj := f;
+        fmap := λ x y g, take _ (MONO x y (inhabits g));
+      |}.
+  End PartA.
+
+  Section PartB.
+    (* TODO *)
+  End PartB.
+
+  Section PartC.
+    (* TODO *)
+  End PartC.
 End Ex3.
 
 Module Ex4.
