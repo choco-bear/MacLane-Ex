@@ -101,25 +101,34 @@ Module Ex3.
   End PartA.
 
   Section PartB.
-    Import Concrete.
+    Import Concrete. Local Open Scope morphism_scope.
     Context (G H : Grp.Object).
 
-    Notation is_homomorphism := (λ f, ∀ x y, f (x ∘ y) = f x ∘ f y)%morphism.
+    Notation is_homomorphism := (λ f, ∀ x y, f (x ∘ y) = f x ∘ f y).
 
     Program Definition functor_to_homomorphism (T : G ~> H)
-      : is_homomorphism (hom_cast _ _ ∘ (fmap T : ⇑ G → _) : _ → ⇑ H) := _.
+      : is_homomorphism (hom_cast _ _ ∘ (fmap T : ⇑ G → _) : _ → ⇑ H)%stdpp := _.
+    Next Obligation. by fmap_eq_simplify. Qed.
+
+    Program Definition homomorphism_to_functor
+      (f : ⇑ G → ⇑ H) {MORPHISM : is_homomorphism f} : G ~> H :=
+      {|
+        fobj := λ _, ●;
+        fmap := λ _ _ g, f (hom_cast _ _ g);
+      |}.
     Next Obligation.
-      fmap_eq_simplify.
-      (** Current Hypotheses:
-        * G, H : Grp.Object
-        * T : G ⟶ H
-        * x, y : ● ~> ●
-        *
-        * Current Goal:
-        * (id[H] # (T # x ∘ T # y))%morphism ~= (id[H] # (⇑(T # x) ∘ ⇑(T # y)))%morphism
-        *)
-      (* TODO : upgrade the tactic [fmap_eq_simplify] to solve this one automatically. *)
-    Admitted.
+      remember (⇑ (id[x])) as I.
+      cut (f I ∘ f I = f I ∘ id[●]).
+      { i. fapply ((∘) (f I)⁻¹) in H0. common_simpl. }
+      cut (I ∘ I = I); subst; i.
+      { rewrite -MORPHISM H0. common_simpl. }
+      fmap_eq_simplify /=.
+    Qed.
+    Next Obligation.
+      remember (⇑ (_ ∘ _)) as LHS. remember (⇑ f0) as RHS1. remember (⇑ g) as RHS2.
+      cut (LHS = RHS1 ∘ RHS2); subst; first by intros ->.
+      fmap_eq_simplify /=.
+    Qed.
   End PartB.
 
   Section PartC.
