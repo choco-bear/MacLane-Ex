@@ -138,6 +138,7 @@ Module Ex3.
     Section Sets.
       Import Sets. Local Open Scope morphism_scope.
 
+      (* Search Functor_preserves_IsIso. *)
       Program Definition functor_to_representation (T : G ⟶ Sets.t) (g : ⇑ G)
         : IsIsomorphism (T # g) := _.
 
