@@ -1,5 +1,5 @@
 Require Import Common.
-Require Graphs Concrete.
+Require Sets Graphs Concrete.
 
 Module Ex1.
   (* TODO *)
@@ -114,12 +114,12 @@ Module Ex3.
       (f : ⇑ G → ⇑ H) {MORPHISM : is_homomorphism f} : G ~> H :=
       {|
         fobj := λ _, ●;
-        fmap := λ _ _ g, f (hom_cast _ _ g);
+        fmap := λ _ _ g, f ⇑g;
       |}.
     Next Obligation.
       remember (⇑ (id[x])) as I.
       cut (f I ∘ f I = f I ∘ id[●]).
-      { i. fapply ((∘) (f I)⁻¹) in H0. common_simpl. }
+      { i. comp_l (f I). common_simpl. }
       cut (I ∘ I = I); subst; i.
       { rewrite -MORPHISM H0. common_simpl. }
       fmap_eq_simplify /=.
@@ -132,7 +132,33 @@ Module Ex3.
   End PartB.
 
   Section PartC.
-    (* TODO *)
+    Import Concrete.
+    Context (G : Grp.Object).
+
+    Section Sets.
+      Import Sets. Local Open Scope morphism_scope.
+
+      Program Definition functor_to_representation (T : G ⟶ Sets.t) (g : ⇑ G)
+        : IsIsomorphism (T # g) := _.
+
+      Program Definition representation_to_functor [X : Sets.Object] (f : ⇑ G → (X ~> X))
+        {REPR : ∀ g, IsIsomorphism (f g)} {HOMO : ∀ x y, f (x ∘ y) = f x ∘ f y} : G ⟶ Sets.t :=
+          {|
+            fobj := λ _, X;
+            fmap := λ _ _ g, f ⇑g;
+          |}.
+      Next Obligation.
+        remember (⇑ _) as I.
+        cut (f I ∘ f I = f I ∘ id[X]).
+        { i. comp_l (f I). common_simpl. }
+        subst. rewrite -HOMO. fmap_eq_simplify /=.
+      Qed.
+      Next Obligation. rewrite -HOMO. f_equal. fmap_eq_simplify /=. Qed.
+    End Sets.
+
+    Section Matr.
+      (* TODO *)
+    End Matr.
   End PartC.
 End Ex3.
 
