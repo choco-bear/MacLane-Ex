@@ -2,7 +2,13 @@ Require Import Common.
 Require Sets Graphs Concrete.
 
 Module Ex1.
-  (* TODO *)
+  Section Part1.
+    (* TODO : Solve this after defining the field of quotients and the integral domains. *)
+  End Part1.
+
+  Section Part2.
+    (* TODO : Solve this after defining the Lie algebras and the Lie groups.*)
+  End Part2.
 End Ex1.
 
 Module Ex2. Section Ex2.
@@ -158,15 +164,19 @@ Module Ex3.
     End Sets.
 
     Section Matr.
-      (* TODO *)
+      (* TODO : Solve this after defining Matr_K *)
     End Matr.
   End PartC.
 End Ex3.
 
 Module Ex4.
-  (* TODO *)
+  (* TODO : Solve this after defining [Ab]. *)
 End Ex4.
 
 Module Ex5.
+  Import Concrete. Local Open Scope morphism_scope.
+
+  Definition I : Grp.t ⟶ Grp.t := id.
+
   (* TODO *)
 End Ex5.
