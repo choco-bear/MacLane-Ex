@@ -123,18 +123,12 @@ Module Ex3.
         fmap := λ _ _ g, f ⇑g;
       |}.
     Next Obligation.
-      remember (⇑ (id[x])) as I.
-      cut (f I ∘ f I = f I ∘ id[●]).
-      { i. comp_l (f I). common_simpl. }
-      cut (I ∘ I = I); subst; i.
-      { rewrite -MORPHISM H0. common_simpl. }
-      fmap_eq_simplify /=.
+      rewrite hom_cast_id.
+      cut (f id[●] ∘ f id[●] = f id[●] ∘ id[●]). 
+      - cby i; comp_l (f id[●]).
+      - cby rewrite -MORPHISM.
     Qed.
-    Next Obligation.
-      remember (⇑ (_ ∘ _)) as LHS. remember (⇑ f0) as RHS1. remember (⇑ g) as RHS2.
-      cut (LHS = RHS1 ∘ RHS2); subst; first by intros ->.
-      fmap_eq_simplify /=.
-    Qed.
+    Next Obligation. rewrite -MORPHISM; f_equal; fmap_eq_simplify //. Qed.
   End PartB.
 
   Section PartC.
@@ -155,10 +149,10 @@ Module Ex3.
             fmap := λ _ _ g, f ⇑g;
           |}.
       Next Obligation.
-        remember (⇑ _) as I.
-        cut (f I ∘ f I = f I ∘ id[X]).
-        { i. comp_l (f I). common_simpl. }
-        subst. rewrite -HOMO. fmap_eq_simplify /=.
+        rewrite hom_cast_id.
+        cut (f id[●] ∘ f id[●] = f id[●] ∘ id[X]).
+        - cby i; comp_l (f id[●]).
+        - cby rewrite -HOMO.
       Qed.
       Next Obligation. rewrite -HOMO. f_equal. fmap_eq_simplify /=. Qed.
     End Sets.

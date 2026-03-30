@@ -2,7 +2,7 @@ Require Import Common.
 Require Sets Graphs Concrete.
 
 Module Ex1. Section Ex1.
-  Import Sets.
+  Import Sets SetsNotations.
   Context (S : Sets.Object).
   
   Program Definition fromS : Sets.t ⟶ Sets.t :=
