@@ -7,7 +7,7 @@ Module Ex1. Section Ex1.
   
   Program Definition fromS : Sets.t ⟶ Sets.t :=
     {|
-      fobj := λ X,S → X;
+      fobj := λ X, S → X;
       fmap := λ X Y f h, f ∘ h
     |}.
 
