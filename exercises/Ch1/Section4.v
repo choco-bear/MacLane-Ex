@@ -36,12 +36,27 @@ Module Ex2. Section Ex2.
   Notation "H '×-'" := (Hx H) (at level 0, no associativity, format "H ×-").
 
   Program Definition Ex2 {H K : Grp.Object} (f : H ~> K) : H×- ⟹ K×- :=
-    {|
-      component := λ G,
-        {|
-          fobj := λ hg, (f hg.1, hg.2);
-          fmap := λ _ _ fg, (f # fg.1, fg.2)%morphism
-        |}
-    |}.
+    {| component := λ G, ⟨f ∘ Fst,id ∘ Snd⟩%functor |}.
   Next Obligation. apply functor_ext; functor_solver. Qed.
 End Ex2. End Ex2.
+
+Module Ex3. Section Ex3.
+  Import Concrete GrpNotations.
+  Context (B C : Grp.Object) (S T : B ~> C).
+
+  Program Definition IfPart (h : ⇑ C) (CONJUGATE : ∀ g : ⇑ B, (⇑ h ∘ S # g = T # g ∘ ⇑ h :> (S ● ~{C}~> T ●))%morphism) : S ⟹ T :=
+    {| component := λ g, (⇑ h)%morphism |}.
+  Next Obligation.
+    cut (x = ● ∧ y = ●)=>[[]|]; last (split; common_simpl); ii; subst.
+    pose proof (CONJUGATE f).
+    remember (⇑ _ ∘ _)%morphism as LHS.
+    remember (_ ∘ ⇑ _)%morphism as RHS.
+    etransitivity; first instantiate (1 := LHS). (* TODO : The functor tactics should be more smart. *)
+    { subst. cancel_r _. functor_solver. }
+    etransitivity; cycle 1; first instantiate (1 := RHS); ss.
+    { subst. cancel_l _. functor_solver. }
+  Qed.
+
+  Theorem OnlyIfPart (τ : S ⟹ T) (g : ⇑ B) : τ ● ∘ S # g =[C] T # g ∘ τ ●.
+  Proof. rewrite naturality //. Qed.
+End Ex3. End Ex3.
