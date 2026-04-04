@@ -15,3 +15,8 @@ Module Ex1.
   Theorem f_not_isomorphism : IsIsomorphism f → False.
   Proof. intros [finv]; ss; depdes finv. Qed.
 End Ex1.
+
+Module Ex2.
+  (* Check @monic_comp. *)
+  (* Check @epic_comp. *)
+End Ex2.
