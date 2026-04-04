@@ -51,7 +51,7 @@ Module Ex3. Section Ex3.
     pose proof (CONJUGATE f).
     remember (⇑ _ ∘ _)%morphism as LHS.
     remember (_ ∘ ⇑ _)%morphism as RHS.
-    etransitivity; first instantiate (1 := LHS). (* TODO : The functor tactics should be more smart. *)
+    etransitivity; first instantiate (1 := LHS).
     { subst. cancel_r _. functor_solver. }
     etransitivity; cycle 1; first instantiate (1 := RHS); ss.
     { subst. cancel_l _. functor_solver. }
