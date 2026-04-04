@@ -73,3 +73,20 @@ Module Ex4. Section Ex4.
 
   Definition OnlyIfPart (τ : S ⟹ T) : ∀ c, S c ≤ T c := λ c, inhabits (τ c).
 End Ex4. End Ex4.
+
+Module Ex5. Section Ex5.
+  Context `(C : Category ObjC) `(B : Category ObjB) (S T : C ⟶ B) (τ : S ⟹ T).
+
+  Definition diagonal `(f : c ~{C}~> c') : S c ~> T c' := T # f ∘ τ c.
+
+  Theorem main `(g : d ~{C}~> e) `(f : c ~{C}~> d)
+    : T # g ∘ diagonal f =[B] diagonal (g ∘ f)
+    ∧ diagonal (g ∘ f) =[B] diagonal g ∘ S # f.
+  Proof.
+    split; unfold diagonal; common_simpl.
+    cancel_l. rewrite naturality //.
+  Qed.
+
+  Theorem converse (μ : S ⟹ T) (H : ∀ c, μ c = diagonal id[c]) : τ = μ.
+  Proof. cby apply nat_trans_ext=> c; rewrite H /diagonal. Qed.
+End Ex5. End Ex5.
