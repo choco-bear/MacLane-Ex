@@ -90,3 +90,7 @@ Module Ex5. Section Ex5.
   Theorem converse (μ : S ⟹ T) (H : ∀ c, μ c = diagonal id[c]) : τ = μ.
   Proof. cby apply nat_trans_ext=> c; rewrite H /diagonal. Qed.
 End Ex5. End Ex5.
+
+Module Ex6.
+  (* TODO : Solve this after defining [Matr] and fields. *)
+End Ex6.
