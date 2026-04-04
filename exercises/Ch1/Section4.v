@@ -52,9 +52,9 @@ Module Ex3. Section Ex3.
     remember (⇑ _ ∘ _)%morphism as LHS.
     remember (_ ∘ ⇑ _)%morphism as RHS.
     etransitivity; first instantiate (1 := LHS).
-    { subst. cancel_r _. functor_solver. }
+    { subst. cancel_r. functor_solver. }
     etransitivity; cycle 1; first instantiate (1 := RHS); ss.
-    { subst. cancel_l _. functor_solver. }
+    { subst. cancel_l. functor_solver. }
   Qed.
 
   Theorem OnlyIfPart (τ : S ⟹ T) (g : ⇑ B) : τ ● ∘ S # g =[C] T # g ∘ τ ●.
