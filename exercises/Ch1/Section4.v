@@ -1,5 +1,5 @@
 Require Import Common.
-Require Sets Graphs Concrete.
+Require Concrete.
 
 Module Ex1. Section Ex1.
   Import Sets SetsNotations.
