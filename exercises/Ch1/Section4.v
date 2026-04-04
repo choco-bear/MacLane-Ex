@@ -60,3 +60,16 @@ Module Ex3. Section Ex3.
   Theorem OnlyIfPart (τ : S ⟹ T) (g : ⇑ B) : τ ● ∘ S # g =[C] T # g ∘ τ ●.
   Proof. rewrite naturality //. Qed.
 End Ex3. End Ex3.
+
+Module Ex4. Section Ex4.
+  Context `(C : Category ObjC).
+  Context `(P : Category ObjP) `{!IsPreOrder P}.
+  Context (S T : C ⟶ P).
+
+  Definition uniqueness : ProofIrrel (S ⟹ T).
+  Proof. ii. apply nat_trans_ext=> c. common_simpl. Qed.
+
+  Program Definition IfPart (H : ∀ c : ObjC, S c ≤ T c) : S ⟹ T := {| component := λ c, take _ (H c) |}.
+
+  Definition OnlyIfPart (τ : S ⟹ T) : ∀ c, S c ≤ T c := λ c, inhabits (τ c).
+End Ex4. End Ex4.
