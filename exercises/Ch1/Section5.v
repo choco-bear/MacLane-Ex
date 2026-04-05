@@ -1,5 +1,5 @@
 Require Import Common.
-Require Sets Graphs Concrete.
+Require Graphs Concrete.
 
 Module Ex1.
   Import Graphs.
@@ -20,3 +20,25 @@ Module Ex2.
   (* Check @monic_comp. *)
   (* Check @epic_comp. *)
 End Ex2.
+
+Module Ex3.
+  Import Sets.
+
+  Notation N := (Sets.from_type nat).
+  Notation "{*}" := (Sets.from_type unit).
+
+  Definition g : N ~> {*} := λ _, tt.
+  Definition f : {*} ~> N := λ _, 0%nat.
+
+  Theorem gf_monic : Monic (g ∘ f).
+  Proof. construct. cby apply func_ext. Qed.
+
+  Theorem f_monic : Monic f.
+  Proof. eapply @monic_strip, gf_monic. Qed.
+
+  Theorem g_not_monic : Monic g → False.
+  Proof.
+    i. hexploit (monic g (λ _ : {*}, 0%nat) (λ _, 1%nat))=> // /equal_f.
+    intro CONTRA. hexploit (CONTRA tt)=> //.
+  Qed.
+End Ex3.
