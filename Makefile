@@ -48,6 +48,7 @@ Makefile.coq: Makefile $(CATEGORYTHEORY) $(MACLANES)
 	 echo "-R coq-cat/theories/core $(CATEGORYMODULE)"; \
 	 echo "-R coq-cat/theories/lib $(CATEGORYMODULE)"; \
 	 echo "-R exercises/Ch1 $(COQMODULE).Ch1"; \
+	 echo "-R exercises/Ch2 $(COQMODULE).Ch2"; \
 	 echo $(CATEGORYTHEORY); \
 	 echo $(MACLANES)) > _CoqProject
 	$(COQBIN)coq_makefile -f _CoqProject -o Makefile.coq
