@@ -1,13 +1,18 @@
 Require Import Common.
+From CoqCat Require Product.
 
 Module Ex1.
-  (* Check BinaryProduct_preserves_IsMonoid. *)
-  (* Check BinaryProduct_preserves_IsGroupoid. *)
-  (* Check BinaryProduct_preserves_IsDiscrete. *)
+  Import Product.
+
+  (* Check BinaryProduct.preserves_IsMonoid. *)
+  (* Check BinaryProduct.preserves_IsGroupoid. *)
+  (* Check BinaryProduct.preserves_IsDiscrete. *)
 End Ex1.
 
 Module Ex2.
-  (* Check BinaryProduct_preserves_IsPreOrder. *)
+  Import Product.
+
+  (* Check BinaryProduct.preserves_IsPreOrder. *)
 End Ex2.
 
 Module Ex3.

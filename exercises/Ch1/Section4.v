@@ -1,8 +1,8 @@
 Require Import Common.
-Require Concrete.
+From CoqCat Require Product Concrete.
 
 Module Ex1. Section Ex1.
-  Import Sets SetsNotations.
+  Import Product Sets SetsNotations.
   Context (S : Sets.Object).
   
   Program Definition fromS : Sets.t ⟶ Sets.t :=
@@ -18,7 +18,9 @@ Module Ex1. Section Ex1.
 End Ex1. End Ex1.
 
 Module Ex2. Section Ex2.
-  Import Concrete GrpNotations.
+  Import Product Concrete GrpNotations.
+
+  Local Obligation Tactic := (program_simpl; common_simpl; try apply functor_ext; try functor_solver).
   
   Program Definition Hx (H : Grp.Object) : Grp.t ⟶ Grp.t :=
     {|
@@ -29,17 +31,11 @@ Module Ex2. Section Ex2.
           fmap := λ _ _ fg, (fg.1, ϕ # fg.2)%morphism
         |};
     |}.
-  Next Obligation.
-    apply functor_ext; try functor_solver.
-    apply func_ext; i. by depdes x0.
-  Qed.
-  Next Obligation. apply functor_ext; functor_solver. Qed.
 
   Notation "H '×-'" := (Hx H) (at level 0, no associativity, format "H ×-").
 
   Program Definition Ex2 {H K : Grp.Object} (f : H ~> K) : H×- ⟹ K×- :=
     {| component := λ G, ⟨f ∘ Fst,id ∘ Snd⟩%functor |}.
-  Next Obligation. apply functor_ext; functor_solver. Qed.
 End Ex2. End Ex2.
 
 Module Ex3. Section Ex3.
