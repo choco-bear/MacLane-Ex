@@ -57,3 +57,29 @@ Module Ex6.
   (* Check SetsIsKaroubiClosed. *)
   (* About IsKaroubiClosed. *)
 End Ex6.
+
+Module Ex7. Section Ex7.
+  Import Sets.
+
+  (* Check has_retraction_then_is_regular. *)
+  (* Check has_section_then_is_regular. *)
+  
+  Context (lem_inf : ∀ P , {P} + {¬P} ).
+  Context (epsilon : ∀ A P, (∃ a : A, P a) → A).
+  Context (epsilon_compat : ∀ A P (p : ∃ a, P a), P (epsilon A P p)).
+
+  Set Transparent Obligations.
+  Program Instance Ex7 `(f : a ~{Sets.t}~> b) `{!Inhabited a} : IsRegularMorphism f :=
+    {|
+      pseudo_inverse := Sets.from_ftn (λ y,
+          match lem_inf (∃ x, y = f x) with
+          | left e => (epsilon _ _ e)
+          | _ => inhabitant
+          end);
+    |}.
+  Next Obligation.
+    Sets.simpl. des_ifs.
+    - symmetry; apply epsilon_compat.
+    - exfalso; eauto.
+  Qed. 
+End Ex7. End Ex7.
