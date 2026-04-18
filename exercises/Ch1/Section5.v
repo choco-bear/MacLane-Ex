@@ -83,3 +83,48 @@ Module Ex7. Section Ex7.
     - exfalso; eauto.
   Qed. 
 End Ex7. End Ex7.
+
+Module Ex8.
+  Structure Object := mk_obj {
+    X : Type;
+    e : X;
+    t : X → X;
+  }.
+
+  Structure Arrow x y := from_ftn {
+    f         : X x → X y;
+    e_compat  : f (e x) = e y;
+    t_compat  : ∀ a, f ((t x) a) = t y (f a); 
+  }.
+
+  Program Definition comp {x y z} (α : Arrow y z) (β : Arrow x y) : Arrow x z := {| f := λ a, f _ _ α (f _ _ β a) |}.
+  Next Obligation. rewrite !e_compat //. Qed.
+  Next Obligation. rewrite !t_compat //. Qed.
+
+  Program Definition cat_id x : Arrow x x := {| f := λ x, x |}.
+
+  Lemma Arrow_ext x y f1 f2 e_compat1 e_compat2 t_compat1 t_compat2
+    : f1 = f2
+    → from_ftn x y f1 e_compat1 t_compat1 = from_ftn x y f2 e_compat2 t_compat2.
+  Proof.
+    intros ->. assert (e_compat1 = e_compat2) as -> by common_simpl.
+    by assert (t_compat1 = t_compat2) as -> by cby apply func_ext_dep.
+  Qed.
+
+  Ltac solver := program_simpl; common_simpl; ss; repeat match goal with H : Arrow _ _ |- _ => depdes H end; unfold comp, cat_id; try apply Arrow_ext; ss.
+
+  Program Instance cat : Category Object :=
+    {|
+      Category.Arrow  := Arrow;
+      Category.comp   := @comp;
+      Category.cat_id := cat_id;
+    |}.
+  Solve Obligations with solver.
+  
+  Program Instance : IsInitial@[cat] (mk_obj nat 0%nat S).
+  Next Obligation.
+    repeat unshelve esplit; first (induction 1; [apply e|by apply t]); ss.
+    ii. depdes x y. apply Arrow_ext, func_ext; ss.
+    induction x; rewrite ?e_compat0 ?e_compat1 ?t_compat0 ?t_compat1 ?IHx //.
+  Qed.
+End Ex8.
