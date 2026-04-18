@@ -42,3 +42,11 @@ Module Ex3.
     intro CONTRA. hexploit (CONTRA tt)=> //.
   Qed.
 End Ex3.
+
+Module Ex4.
+  (* TODO : Solve this after defining Rng category. *)
+End Ex4.
+
+Module Ex5.
+  (* TODO : Solve this after formalizing some elementary group theories. *)
+End Ex5.
