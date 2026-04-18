@@ -91,6 +91,7 @@ End Ex2. End Ex2.
 
 Module Ex3.
   Section PartA.
+    Context (take : ∀ A, inhabited A → A).
     Context `{_PPO : @IsPreOrder ObjP P} `{_QPO : @IsPreOrder ObjQ Q}.
 
     Notation monotonic := (Proper ((≤) ==> (≤))).

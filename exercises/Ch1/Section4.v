@@ -64,6 +64,7 @@ Module Ex3. Section Ex3.
 End Ex3. End Ex3.
 
 Module Ex4. Section Ex4.
+  Context (take : ∀ A, inhabited A → A).
   Context `(C : Category ObjC).
   Context `(P : Category ObjP) `{!IsPreOrder P}.
   Context (S T : C ⟶ P).
