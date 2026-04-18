@@ -128,3 +128,7 @@ Module Ex8.
     induction x; rewrite ?e_compat0 ?e_compat1 ?t_compat0 ?t_compat1 ?IHx //.
   Qed.
 End Ex8.
+
+Module Ex9.
+  (* Check faithful_monic_strip_fmap. *)
+End Ex9.
