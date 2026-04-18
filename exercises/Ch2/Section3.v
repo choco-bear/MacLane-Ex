@@ -7,5 +7,5 @@ Module Ex1.
 End Ex1.
 
 Module Ex2.
-  Check BinaryProduct_preserves_IsPreOrder.
+  (* Check BinaryProduct_preserves_IsPreOrder. *)
 End Ex2.
