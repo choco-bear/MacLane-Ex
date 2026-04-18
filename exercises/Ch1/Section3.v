@@ -150,8 +150,8 @@ Module Ex3.
           |}.
       Next Obligation.
         rewrite hom_cast_id.
-        cut (f id[●] ∘ f id[●] = f id[●] ∘ id[X]).
-        - cby i; comp_l (f id[●]).
+        cut (f id[●] ∘[Sets.t] f id[●] = f id[●] ∘[Sets.t] id[X]).
+        - i. by comp_l (f id[●] : _ ~{Sets.t}~> _).
         - cby rewrite -HOMO.
       Qed.
       Next Obligation. rewrite -HOMO. f_equal. fmap_eq_simplify /=. Qed.

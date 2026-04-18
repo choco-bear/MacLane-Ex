@@ -8,11 +8,13 @@ Module Ex1. Section Ex1.
   Program Definition fromS : Sets.t ⟶ Sets.t :=
     {|
       fobj := λ X, S → X;
-      fmap := λ X Y f h, f ∘ h
+      fmap := λ X Y f, Sets.from_ftn (λ h, f ∘ h)
     |}.
+  Solve Obligations with Sets.solver.
 
   Program Definition eval : ((-×-)%sets ∘ ⟨ fromS , .↦ S ⟩) ⟹ id :=
-    {| component := λ X hs, hs.1 hs.2 |}.
+    {| component := λ X, Sets.from_ftn (λ hs, hs.1 hs.2) |}.
+  Solve Obligations with Sets.solver.
 End Ex1. End Ex1.
 
 Module Ex2. Section Ex2.
